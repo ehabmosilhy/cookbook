@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <act_window
+                id="library_book_cat_action"
+                name="Library Book Categories"
+                res_model="library.book.category"
+        />
+
+
+        <menuitem id="library_books_categories" name="Categories"
+                  action="library_book_cat_action" parent="library_books_main_menu" sequence="5"/>
+
+        <record id="library_book_cat_view_form" model="ir.ui.view">
+            <field name="name">Library Book Category Form</field>
+            <field name="model">library.book.category</field>
+            <field name="arch" type="xml">
+                <form>
+                        <group>
+                            <field name="parent_id"/>
+                            <field name="name"/>
+                            <field name="child_ids"/>
+                        </group>
+
+
+                </form>
+            </field>
+        </record>
+
+    </data>
+</openerp>
