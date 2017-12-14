@@ -1,6 +1,8 @@
  # -*- coding: utf-8 -*-
 from openerp import models, fields, api
 from openerp.addons import decimal_precision as dp
+from openerp.fields import Date as fDate
+from datetime import datetime
 class LibraryBook(models.Model):
     _name = 'library.book'
     _description = 'Library Book'
@@ -47,6 +49,26 @@ class LibraryBook(models.Model):
         for this_record in self:
             if this_record.date_release > fields.Date.today():
                 raise models.ValidationError('Release date must be in the past')
+
+    hours_to_read= fields.Float(
+        string='Hours Needed to read',
+        compute='_compute_hours_to_read',
+        inverse='_inverse_hours',
+        # search='_search_age',
+        store=False,
+        compute_sudo=False,
+    )
+
+    @api.depends('pages')
+    def _compute_hours_to_read(self):
+        for book in self:
+            book.hours_to_read = book.pages*2
+
+    def _inverse_hours(self):
+        for book in self:
+            book.pages=book.hours_to_read /2
+
+
 
 
 class publishers(models.Model):
