@@ -1,5 +1,5 @@
  # -*- coding: utf-8 -*-
-from openerp import models, fields
+from openerp import models, fields, api
 from openerp.addons import decimal_precision as dp
 class LibraryBook(models.Model):
     _name = 'library.book'
@@ -35,6 +35,19 @@ class LibraryBook(models.Model):
     active = fields.Boolean('Active', default=True)
     cost_price = fields.Float('Book Cost', dp.get_precision('Book Price'))
     publisher= fields.Many2one('res.partner', 'Publisher', domain=[('publisher', '=', True)])
+
+    min_pages=50
+    _sql_constraints = [
+                         ('names', 'unique(name)','Error ! Name can\'t repeat.')
+                        ,('pages', 'check(pages>={0} )'.format(min_pages),'Error ! Pages must be more than {0}.'.format(min_pages))
+                        ]
+
+    @api.constrains('date_release')
+    def check_release_date(self):
+        for this_record in self:
+            if this_record.date_release > fields.Date.today():
+                raise models.ValidationError('Release date must be in the past')
+
 
 class publishers(models.Model):
     _inherit='res.partner'
