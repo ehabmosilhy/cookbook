@@ -59,6 +59,10 @@ class LibraryBook(models.Model):
         compute_sudo=False,
     )
 
+    publisher_city = fields.Char(
+        'Publisher City',
+        related='publisher.city')
+
     @api.depends('pages')
     def _compute_hours_to_read(self):
         for book in self:

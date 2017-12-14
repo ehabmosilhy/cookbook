@@ -47,7 +47,9 @@
                     <group>
                         <group>
                             <field name="publisher"/>
+                            <field name="publisher_city"/>
                             <field name="hours_to_read"/>
+
 
                         </group>
                         <group></group>
