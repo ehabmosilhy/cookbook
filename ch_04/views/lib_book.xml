@@ -52,7 +52,9 @@
 
 
                         </group>
-                        <group></group>
+                        <group>
+                            <field name="ref_doc_id"/>
+                        </group>
                         <group></group>
                     </group>
 
@@ -68,8 +70,7 @@
             <field name="arch" type="xml">
                 <tree>
                     <field name="name"/>
-                    <field name="short_name"/>
-                    <field name="date_release"/>
+                    <field name="state"/>
                 </tree>
             </field>
         </record>

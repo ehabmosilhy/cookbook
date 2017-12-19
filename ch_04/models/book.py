@@ -72,8 +72,14 @@ class LibraryBook(models.Model):
         for book in self:
             book.pages=book.hours_to_read /2
 
+    @api.model
+    def _referencable_models(self):
+        models = self.env['res.request.link'].search([])
+        return [(x.object, x.name) for x in models]
 
-
+    ref_doc_id = fields.Reference(
+        selection='_referencable_models',
+        string='Reference Document')
 
 class publishers(models.Model):
     _inherit='res.partner'
