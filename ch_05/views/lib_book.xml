@@ -68,7 +68,7 @@
             <field name="name">Library Book List</field>
             <field name="model">library.book</field>
             <field name="arch" type="xml">
-                <tree>
+                <tree colors="red:state==False">
                     <field name="name"/>
                     <field name="state"/>
                 </tree>
